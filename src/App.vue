@@ -44,26 +44,30 @@ import axios from "axios";
 
 export default {
   name: "App",
-  data() {
+  data(){
     return {
       title: "Welcome to Opportunity",
       currentDate:"",
       gsheet_url:
       "https://sheets.googleapis.com/v4/spreadsheets/14wl5n-gRB3qmgHAZjZuYAESOgcstqv3duOaneFhUWJQ/values:batchGet?ranges=A1%3AE100&valueRenderOption=FORMATTED_VALUE&key=AIzaSyAUQvNndCJ1AIzKUdbogJm03OkKXRLrMKI",
       entries: [],
+
     };
   },
   computed: { // // computed properties are like data properties, but with a method combined, it gets executed automatically, instead of calling a function explicitly
     filteredEntries(){
       return [...this.entries].slice(1);
-    },
+    }
   },
+    
+ 
   methods: {
     getData() {
       axios.get(this.gsheet_url).then((response) => {
        this.entries = response.data.valueRanges[0].values;
         console.log(response);
       }); 
+  
     },
     
     updateCurrentDate () {
@@ -82,8 +86,7 @@ export default {
       this.refreshData();
     }, 180000)
    },
-  };
-  
+}; 
 </script>
 
 <style>
@@ -152,7 +155,7 @@ body {
 }
 
 .footer {
-  display:flex;
+  display:flex-wrap;
   justify-content:space-between;
   background: #FFFFFF;
   padding: 40px;
@@ -161,11 +164,17 @@ body {
   bottom:0;
   left: 0;
   width: 100%;
+  
 }
 
 .footer img {
   height: 50px;
   
 }
+@media screen and (min-width: 480px) {
+  #leftsidebar {width: 200px; float: left;}
+  #main {margin-left: 216px;}
+}
+
 
 </style>
